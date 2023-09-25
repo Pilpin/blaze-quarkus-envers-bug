@@ -2,15 +2,8 @@ package io.pilpin.mre;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
 import org.hibernate.envers.Audited;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Audited(withModifiedFlag = true)
 @Entity
 @DiscriminatorValue("ADDRESS")
@@ -20,17 +13,53 @@ public class AddressEntity extends ContactInfoEntity {
     private String city;
     private String country;
 
-    public AddressEntity(@NonNull AddressInput input) {
+    public AddressEntity() {
+
+    }
+
+    public AddressEntity(AddressInput input) {
         this.update(input);
     }
 
     @Override
     public <T extends ContactInfoInput> void update(T input) {
         if (input instanceof AddressInput a) {
-            this.street = a.getStreet();
-            this.postalcode = a.getPostalcode();
-            this.city = a.getCity();
-            this.country = a.getCountry();
+            this.street = a.street();
+            this.postalcode = a.postalcode();
+            this.city = a.city();
+            this.country = a.country();
         }
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

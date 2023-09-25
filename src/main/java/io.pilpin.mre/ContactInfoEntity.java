@@ -1,25 +1,16 @@
 package io.pilpin.mre;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import java.util.Objects;
 
-
-@Getter
-@Setter
-@NoArgsConstructor
 @Audited(withModifiedFlag = true)
 @Entity
 @Table(name = "coordonnee")
 @Inheritance
 @DiscriminatorColumn(name = "discriminator")
-@DynamicUpdate
 public abstract class ContactInfoEntity {
     @Id
     @GeneratedValue
@@ -40,6 +31,22 @@ public abstract class ContactInfoEntity {
     }
 
     public abstract <T extends ContactInfoInput> void update(T input);
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Short getVersion() {
+        return version;
+    }
+
+    public void setVersion(Short version) {
+        this.version = version;
+    }
 
     @Override
     public boolean equals(Object o) {

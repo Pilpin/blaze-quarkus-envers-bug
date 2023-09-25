@@ -11,8 +11,4 @@ public interface ContactInfoView {
     Long getId();
 
     Short getVersion();
-
-    String getLibelle();
-
-    Boolean getPrincipal();
 }
